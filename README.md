@@ -1,6 +1,14 @@
 # vagrant-test
 
-**vagrant-test** is a simple Vagrant plugin for running tests on your VMs.
+**vagrant-test** is a simple Vagrant plugin for running integration tests on
+your VMs. There are several similar projects related to testing Chef/Puppet
+configurations, but to my knowledge, none of them provide a simple way to run
+the typical "internal" tests as well as "external" tests (i.e. run from outside
+the VM) in order to verify remote connectivity.
+
+This project served as a way for me to learn how to write a Vagrant plugin, and
+due to its extreme simplicity, it is also CM/test framework agnostic (a useful
+feature, in my opinion).
 
 ## Installation
 
@@ -24,17 +32,17 @@ your Vagrantfile:
   </tr>
   <tr>
     <td>test.dir</td>
-    <td>Directory where tests are located</td>
+    <td>Root directory for all tests</td>
     <td>"spec"</td>
   </tr>
   <tr>
     <td>test.internal_tests</td>
-    <td>List of tests to be run from inside the VM</td>
+    <td>List of tests to be run by the VM</td>
     <td>[]</td>
   </tr>
   <tr>
     <td>test.external_tests</td>
-    <td>List of tests to be run from the host against the VM</td>
+    <td>List of tests to be run by the host system against the VM</td>
     <td>[]</td>
   </tr>
 </table>
