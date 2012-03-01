@@ -14,5 +14,5 @@ Gem::Specification.new do |s|
   s.add_dependency "vagrant", "~> 0.9.0"
   s.add_dependency "rspec"
 
-  s.files = ["CHANGELOG.md", "LICENSE", "README.md"] + Dir["lib/**/*.*"]
+  s.files = ["README.md"] + Dir["lib/**/*.*"]
 end
