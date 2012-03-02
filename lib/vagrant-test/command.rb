@@ -22,9 +22,9 @@ module VagrantTest
           unless vm.config.test.internal_tests.empty?
             internal_tests = vm.config.test.internal_tests.map { |obj|
               File.join(V_ROOT, vm.config.test.dir, obj)
-            }.join(", ")
-            vm.ui.info("Running internal test(s): #{internal_tests}")
-            vm.channel.sudo("#{vm.config.test.command} #{internal_tests}") do |type,data|
+            }
+            vm.ui.info("Running internal test(s): #{internal_tests.join(", ")}")
+            vm.channel.sudo("#{vm.config.test.command} #{internal_tests.join(" ")}") do |type,data|
               print data if type == :stdout
             end
           end
@@ -32,9 +32,9 @@ module VagrantTest
           unless vm.config.test.external_tests.empty?
             external_tests = vm.config.test.external_tests.map { |obj|
               File.join(vm.config.test.dir, obj)
-            }.join(", ")
-            vm.ui.info("Running external test(s): #{external_tests}")
-            system("#{vm.config.test.command} #{external_tests}")
+            }
+            vm.ui.info("Running external test(s): #{external_tests.join(", ")}")
+            system("#{vm.config.test.command} #{external_tests.join(" ")}")
           end
         end
       end
