@@ -5,7 +5,7 @@ require "vagrant-test/command"
 module VagrantTest
 
   NAME            = "vagrant-test"
-  VERSION         = "0.1.0"
+  VERSION         = "0.1.1"
   AUTHOR          = "Michael Paul Thomas Conigliaro"
   AUTHOR_EMAIL    = "mike [at] conigliaro [dot] org"
   DESCRIPTION     = "vagrant-test is a simple Vagrant plugin for running tests on your VMs."

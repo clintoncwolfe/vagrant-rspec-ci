@@ -53,6 +53,10 @@ your Vagrantfile:
 
 ## Change Log
 
+### 0.1.1 (2012-03-02)
+
+* Fix bug when multiple test files are specified
+
 ### 0.1.0 (2012-02-29)
 
 * Initial public release
