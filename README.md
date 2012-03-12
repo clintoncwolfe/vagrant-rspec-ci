@@ -53,6 +53,11 @@ your Vagrantfile:
 
 ## Change Log
 
+### 0.1.2 (2012-03-12)
+
+* Fixes for running under Vagrant 1.0
+* Use bundler
+
 ### 0.1.1 (2012-03-02)
 
 * Fix bug when multiple test files are specified

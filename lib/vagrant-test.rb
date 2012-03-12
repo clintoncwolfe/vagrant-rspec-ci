@@ -1,3 +1,6 @@
+require "rubygems"
+require "bundler/setup"
+
 require "vagrant"
 require "vagrant-test/config"
 require "vagrant-test/command"
@@ -5,7 +8,7 @@ require "vagrant-test/command"
 module VagrantTest
 
   NAME            = "vagrant-test"
-  VERSION         = "0.1.1"
+  VERSION         = "0.1.2"
   AUTHOR          = "Michael Paul Thomas Conigliaro"
   AUTHOR_EMAIL    = "mike [at] conigliaro [dot] org"
   DESCRIPTION     = "vagrant-test is a simple Vagrant plugin for running tests on your VMs."

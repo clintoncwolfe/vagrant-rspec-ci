@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.summary           = VagrantTest::DESCRIPTION
   s.description       = VagrantTest::DESCRIPTION
 
-  s.add_dependency "vagrant", "~> 0.9.0"
+  s.add_dependency "vagrant", ">= 0.9.0"
   s.add_dependency "rspec"
 
   s.files = ["README.md"] + Dir["lib/**/*.*"]
