@@ -3,4 +3,4 @@ if ! command -v bundle
 then
   gem install bundler
 fi
-bundle install
+
