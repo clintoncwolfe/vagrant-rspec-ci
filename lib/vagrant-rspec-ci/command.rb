@@ -17,35 +17,25 @@ module VagrantRspecCI
           vm.ui.error("VM not running. Not running tests.")        
         else
          
-          internal_tests = expand_internal_test_list(vm.config.rspec)
-          internal_cmd = internal_command(vm)
-          internal_tests.each do |testfile|
-            raise "Sorry bucko, internal rspec tests not implemented yet."
-            #vm.ui.info("Running internal test: #{testfile}")
-            #vm.channel.sudo("#{internal_cmd} #{testfile}") do |type,data|
-            #  print data if type == :stdout
-            #end
-          end
-
-          external_tests = expand_external_test_list(vm.config.rspec)
-          external_cmd = external_command(vm)
-          external_tests.each do |testfile|
-            vm.ui.info("Running external test: #{testfile}")
-            cmd = "#{external_cmd} #{testfile}"
+          tests = expand_test_list(vm.config.rspec)
+          cmd = rspec_command(vm)
+          tests.each do |testfile|
+            vm.ui.info("Running rspec test: #{testfile}")
+            cmd = "#{cmd} #{testfile}"
             @logger.debug("Command: #{cmd}")
-            system({ "CI_REPORTS" => vm.config.rspec.external_reports_dir } , cmd)
+            system({ "CI_REPORTS" => vm.config.rspec.reports_dir } , cmd)
             result = $?
             # rspec exits 0 if all passed, 1 if some failed - and system gives nil if there was a problem starting the process
             if result.nil? then
-              vm.ui.error "Unable to execute external rspec command: #{$!} \n #{cmd}"
+              vm.ui.error "Unable to execute rspec command: #{$!} \n #{cmd}"
             elsif result.exitstatus == 1 then
-              vm.ui.warn "External test #{testfile} has at least one failure - see report output for details"
+              vm.ui.warn "Rspec test #{testfile} has at least one failure - see report output for details"
             else
-              vm.ui.info "External test #{testfile} passed"
+              vm.ui.success "Rspec test #{testfile} passed"
             end
           end
 
-          if (internal_tests + external_tests).empty?
+          if tests.empty?
             vm.ui.info("No rspec tests found.")
           end
 
@@ -54,28 +44,15 @@ module VagrantRspecCI
     end
 
     private
-    def expand_external_test_list (rspec_config) 
-      external_tests = rspec_config.external_tests.map { |filespec|
-        rspec_config.external_dirs.find_all { |dir| File.directory?(dir) }.map { |dir|          
+    def expand_test_list (rspec_config) 
+      tests = rspec_config.tests.map { |filespec|
+        rspec_config.dirs.find_all { |dir| File.directory?(dir) }.map { |dir|          
           Dir.glob(File.join(dir, filespec))
         }
       }.flatten.uniq
     end
 
-    def expand_internal_test_list (rspec_config) 
-      internal_tests = rspec_config.internal_tests.map { |filespec|
-        rspec_config.internal_dirs.find_all { |dir| File.directory?(dir) }.map { |dir|
-          host_pov_hits = Dir.glob(File.join(dir, filespec))
-          guest_pov_hits = host_pov_hits.map{ |f| f.sub(dir,V_ROOT) }
-        }
-      }.flatten.uniq
-    end
-
-    def internal_command (vm)
-      # TODO - should this do anything magical, like installing rspec/ci_reporter/other gems?
-    end
-
-    def external_command (vm)
+    def rspec_command (vm)
       # Use gemset provided by Vagrant
       # Cribbed from https://github.com/mitchellh/vagrant/blob/1-0-stable/lib/vagrant/command/gem.rb
       ENV['GEM_HOME'] = vm.env.gems_path.to_s
@@ -98,13 +75,13 @@ module VagrantRspecCI
       # Find rspec
       # TODO - even when you install it as a vagrant gem, it is not present in ::Gem.bindir :(
       # Cross fingers?
-      rspec_path = vm.config.rspec.external_rspec_bin_path
+      rspec_path = vm.config.rspec.rspec_bin_path
 
       cmd = ""
       cmd << rspec_path
       cmd << (use_cir ? " --require " + ci_hook_path + " --format CI::Reporter::RSpec" : "")
       cmd << (use_cir && vm.config.rspec.suppress_ci_stdout ? " -o /dev/null " : "")
-      cmd << vm.config.rspec.external_dirs.map{ |d| " -I #{d}" }.join('')
+      cmd << vm.config.rspec.dirs.map{ |d| " -I #{d}" }.join('')
 
       cmd
     end

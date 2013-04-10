@@ -1,12 +1,13 @@
 # vagrant-rspec-ci
 
-**vagrant-rspec-ci** is a Vagrant plugin for running integration tests on
+**vagrant-rspec-ci** is a Vagrant plugin for running integration tests against
 your VMs, and produces jUnit formatted reports for consumption by your CI server 
 (travis and Jenkins and both can consume this). 
 
 It is based on a fork of Michael Paul Thomas Conigliaro's vagrant-test plugin, with
-some breaking changes to make it rpsec-specific and integrate better with ci_reporter
-(the jUnit report formatter)
+some (very) breaking changes to make it rpsec-specific and integrate better with ci_reporter
+(the jUnit report formatter).  I also removed the internal side of testing, as we didn't 
+want to alter the test subject (by installing rspec internally in the VM, for example)
 
 ## Installation (Vagrant v1.0.x)
 
@@ -35,48 +36,25 @@ your Vagrantfile:
   </tr>
 
   <tr>
-    <td>config.rspec.external_dirs</td>
+    <td>config.rspec.dirs</td>
     <td>Array of directories (relative to vagrant project root) to be used as a search path for external tests.</td>
     <td>['combined/spec_ext", "spec"]</td>
   </tr>
   <tr>
-    <td>config.rspec.external_tests</td>
-    <td>List of tests (filenames or globs, expanded in the external_dirs paths) to be run outside the VM</td>
+    <td>config.rspec.tests</td>
+    <td>List of tests (filenames or globs, expanded in the dirs paths) to be run outside the VM</td>
     <td>[ '*ext_spec.rb' ]</td>
   </tr>
   <tr>
-    <td>config.rspec.external_rspec_bin_path</td>
+    <td>config.rspec.rspec_bin_path</td>
     <td>Path to rspec command, on VM host</td>
     <td>"rspec"</td>
   </tr>
   <tr>
-    <td>config.rspec.external_reports_dir</td>
+    <td>config.rspec.reports_dir</td>
     <td>If ci_reporter is enabled, path to write the jUnit XML reports.  Relative to vagrant project dir.</td>
     <td>"rspec_reports"</td>
   </tr>
-
-
-  <tr>
-    <td>config.rspec.internal_dirs</td>
-    <td>Array of directories (relative to vagrant project root) to be used as a search path for internal tests.</td>
-    <td>['combined/spec_int", "spec"]</td>
-  </tr>
-  <tr>
-    <td>config.rspec.internal_tests</td>
-    <td>List of tests (filenames or globs, expanded in the internal_dirs paths) to be run inside the VM</td>
-    <td>[ '*int_spec.rb' ]</td>
-  </tr>
-  <tr>
-    <td>config.rspec.internal_rspec_bin_path</td>
-    <td>Path to rspec command, inside VM guest.  You must install rpsec yourself!</td>
-    <td>"rspec"</td>
-  </tr>
-  <tr>
-    <td>config.rspec.internal_reports_dir</td>
-    <td>If ci_reporter is enabled, path to write the jUnit XML reports.  Relative to /vagrant, which is mounted on the host's vagrant project dir.</td>
-    <td>"rspec_reports"</td>
-  </tr>
-</table>
 
 ## Usage
 
