@@ -18,7 +18,12 @@ module VagrantRspecCI
     end
 
     def rspec_bin_path
-      @rpsec_bin_path || DEFAULT_RSPEC_BIN_PATH
+      if @rpsec_bin_path then
+        return @rpsec_bin_path
+      else
+        guess = File.join(::Gem.bindir, 'rspec')
+        return File.exists?(guess) ? guess : DEFAULT_RSPEC_BIN_PATH
+      end
     end
 
     def reports_dir

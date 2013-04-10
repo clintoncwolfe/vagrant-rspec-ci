@@ -62,8 +62,14 @@ your Vagrantfile:
 
 ## Change Log
 
-### 0.0.1 (2013-04-09)
+### 0.0.2 (2013-04-10)
+* Try to use rspec from vagrant gemset if possible
 
+### 0.0.1 (2013-04-09)
+* Integrated with ci_reporter
+* Added directories as search paths, with defaults
+* Added globbing for test files
+* Removed internal testing support
 * Forked from v0.1.2 of vagrant-test
 
 ## License

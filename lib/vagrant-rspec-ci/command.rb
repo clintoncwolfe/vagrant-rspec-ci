@@ -22,8 +22,10 @@ module VagrantRspecCI
           tests.each do |testfile|
             vm.ui.info("Running rspec test: #{testfile}")
             cmd = "#{cmd} #{testfile}"
+            env = prep_env(vm)
             @logger.debug("Command: #{cmd}")
-            system({ "CI_REPORTS" => vm.config.rspec.reports_dir } , cmd)
+            @logger.debug("Environment: #{env.inspect()}")
+            system(env, cmd)
             result = $?
             # rspec exits 0 if all passed, 1 if some failed - and system gives nil if there was a problem starting the process
             if result.nil? then
@@ -46,6 +48,17 @@ module VagrantRspecCI
     end
 
     private
+
+    def prep_env(vm) 
+      env = {}
+      env["CI_REPORTS"] = vm.config.rspec.reports_dir
+
+      # Needed so vagrant-gemmed bins (like rspec) can find ruby_noexec_wrapper
+      env["PATH"] = ::Gem.bindir + ':' + ENV["PATH"]
+
+      env
+    end
+
     def expand_test_list (rspec_config) 
       tests = rspec_config.tests.map { |filespec|
         rspec_config.dirs.find_all { |dir| File.directory?(dir) }.map { |dir|          
