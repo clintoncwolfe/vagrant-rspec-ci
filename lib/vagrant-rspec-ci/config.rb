@@ -40,8 +40,6 @@ module VagrantRspecCI
         end
       end
        
-
-
       # Must find at least one of the external directory defaults
       edir = self.external_dirs.find {|d| File.directory?(d) }
       errors.add("No external test directory found - candidates: #{self.external_dirs.join(',')}") unless edir
@@ -51,18 +49,6 @@ module VagrantRspecCI
       idir = self.internal_dirs.find {|d| File.directory?(d) }
       errors.add("No internal test directory found - candidates: #{self.internal_dirs.join(',')}") unless idir
 
-      # [:internal_tests, :external_tests].inject({}) { |memo,obj|
-      #   memo.merge({ obj => self.send(obj.to_sym) })
-      # }.each do |name,value|
-      #   if value.respond_to?(:each)
-      #     value.each do |obj|
-      #       file = File.join(dir, obj)
-      #       errors.add("File not found: #{file}") unless File.exists?(file)
-      #     end
-      #   else
-      #     errors.add("#{name} is not enumerable")
-      #   end
-      # end
     end
 
   end
