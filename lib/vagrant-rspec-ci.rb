@@ -1,5 +1,4 @@
 require "rubygems"
-require "bundler/setup"
 
 require "vagrant"
 require "vagrant-rspec-ci/config"
