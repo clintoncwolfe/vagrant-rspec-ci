@@ -17,11 +17,11 @@ module VagrantRspecCI
     end
 
     def internal_tests
-      @internal_tests || []
+      @internal_tests || DEFAULT_INTERNAL_TESTS
     end
 
     def external_tests
-      @external_tests || []
+      @external_tests || DEFAULT_EXTERNAL_TESTS
     end
 
     def validate(env, errors)

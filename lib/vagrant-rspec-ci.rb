@@ -17,6 +17,8 @@ module VagrantRspecCI
   DEFAULT_COMMAND = "rspec -f doc"
   DEFAULT_EXTERNAL_DIRS    = [ "combined/spec_ext", "spec" ]
   DEFAULT_INTERNAL_DIRS    = [ "combined/spec_int", "spec" ]
+  DEFAULT_EXTERNAL_TESTS    = [ "*ext_spec.rb" ]
+  DEFAULT_INTERNAL_TESTS    = [ "*int_spec.rb" ]
 
 end
 

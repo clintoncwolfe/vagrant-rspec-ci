@@ -2,7 +2,7 @@
 
 **vagrant-rspec-ci** is a Vagrant plugin for running integration tests on
 your VMs, and produces jUnit formatted reports for consumption by your CI server 
-(travis and Jenkins and both consume this). 
+(travis and Jenkins and both can consume this). 
 
 It is based on a fork of Michael Paul Thomas Conigliaro's vagrant-test plugin, with
 some breaking changes to make it rpsec-specific and integrate better with ci_reporter
@@ -40,13 +40,13 @@ your Vagrantfile:
   </tr>
   <tr>
     <td>config.rspec.internal_tests</td>
-    <td>List of tests to be run by the VM</td>
-    <td>[]</td>
+    <td>List of tests (filenames or globs, expanded in the internal_dirs paths) to be run inside the VM</td>
+    <td>[ '*int_spec.rb' ]</td>
   </tr>
   <tr>
     <td>config.rspec.external_tests</td>
-    <td>List of tests to be run by the host system against the VM</td>
-    <td>[]</td>
+    <td>List of tests (filenames or globs, expanded in the external_dirs paths) to be run outside the VM</td>
+    <td>[ '*ext_spec.rb' ]</td>
   </tr>
 </table>
 
