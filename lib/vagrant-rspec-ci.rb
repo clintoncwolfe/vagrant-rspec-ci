@@ -1,6 +1,7 @@
 require "rubygems"
 
 require "vagrant"
+require "vagrant/util/subprocess"
 require "vagrant-rspec-ci/config"
 require "vagrant-rspec-ci/command"
 

@@ -28,11 +28,10 @@ your Vagrantfile:
     <td>Boolean - whether to use ci_reporter to format rspec results as jUnit reports.</td>
     <td>true</td>
   </tr>
-
   <tr>
-    <td>config.rspec.command</td>
-    <td>Command used to run tests</td>
-    <td>"rspec -f doc"</td>
+    <td>config.rspec.suppress_ci_stdout</td>
+    <td>ci_reporter improperly registers as a formatter, writes to files, but leaves the doc formatter in place.  This makes for very noisy output.  Set to true (default) to send all STDOUT formatter output from rspec to /dev/null ; set to false when diagnosing a problem, or if you like noise.</td>
+    <td>true</td>
   </tr>
 
   <tr>

@@ -3,6 +3,7 @@ module VagrantRspecCI
   class Config < Vagrant::Config::Base
 
     attr_writer :enable_ci_reporter, 
+    :suppress_ci_stdout,
     :external_rspec_bin_path,
     :external_reports_dir,
     :external_dirs,
@@ -15,6 +16,10 @@ module VagrantRspecCI
 
     def enable_ci_reporter
       @enable_ci_reporter.nil? ? true : @enable_ci_reporter
+    end
+
+    def suppress_ci_stdout
+      @suppress_ci_stdout.nil? ? true : @suppress_ci_stdout
     end
 
     def external_rspec_bin_path

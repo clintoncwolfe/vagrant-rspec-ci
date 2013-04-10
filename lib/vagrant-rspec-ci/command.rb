@@ -20,10 +20,11 @@ module VagrantRspecCI
           internal_tests = expand_internal_test_list(vm.config.rspec)
           internal_cmd = internal_command(vm)
           internal_tests.each do |testfile|
-            vm.ui.info("Running internal test: #{testfile}")
-            vm.channel.sudo("#{internal_cmd} #{testfile}") do |type,data|
-              print data if type == :stdout
-            end
+            raise "Sorry bucko, internal rspec tests not implemented yet."
+            #vm.ui.info("Running internal test: #{testfile}")
+            #vm.channel.sudo("#{internal_cmd} #{testfile}") do |type,data|
+            #  print data if type == :stdout
+            #end
           end
 
           external_tests = expand_external_test_list(vm.config.rspec)
@@ -32,7 +33,16 @@ module VagrantRspecCI
             vm.ui.info("Running external test: #{testfile}")
             cmd = "#{external_cmd} #{testfile}"
             @logger.debug("Command: #{cmd}")
-            system("#{cmd}")
+            system({ "CI_REPORTS" => vm.config.rspec.external_reports_dir } , cmd)
+            result = $?
+            # rspec exits 0 if all passed, 1 if some failed - and system gives nil if there was a problem starting the process
+            if result.nil? then
+              vm.ui.error "Unable to execute external rspec command: #{$!} \n #{cmd}"
+            elsif result.exitstatus == 1 then
+              vm.ui.warn "External test #{testfile} has at least one failure - see report output for details"
+            else
+              vm.ui.info "External test #{testfile} passed"
+            end
           end
 
           if (internal_tests + external_tests).empty?
@@ -90,11 +100,13 @@ module VagrantRspecCI
       # Cross fingers?
       rspec_path = vm.config.rspec.external_rspec_bin_path
 
-      cmd = (use_cir ? "CI_REPORTS=" + vm.config.rspec.external_reports_dir + " " : "") +
-        rspec_path +
-        (use_cir ? " --require " + ci_hook_path + " --format CI::Reporter::RSpec" : "") +
-        vm.config.rspec.external_dirs.map{ |d| " -I #{d}" }.join('')
+      cmd = ""
+      cmd << rspec_path
+      cmd << (use_cir ? " --require " + ci_hook_path + " --format CI::Reporter::RSpec" : "")
+      cmd << (use_cir && vm.config.rspec.suppress_ci_stdout ? " -o /dev/null " : "")
+      cmd << vm.config.rspec.external_dirs.map{ |d| " -I #{d}" }.join('')
 
+      cmd
     end
 
   end
