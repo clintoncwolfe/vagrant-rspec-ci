@@ -1,4 +1,4 @@
-module VagrantTest
+module VagrantRspecCI
 
   class Config < Vagrant::Config::Base
 

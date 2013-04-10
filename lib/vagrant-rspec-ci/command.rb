@@ -1,4 +1,4 @@
-module VagrantTest
+module VagrantRspecCI
 
   class Command < Vagrant::Command::Base
 

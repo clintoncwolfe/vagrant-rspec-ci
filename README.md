@@ -1,18 +1,16 @@
-# vagrant-test
+# vagrant-rspec-ci
 
-**vagrant-test** is a simple Vagrant plugin for running integration tests on
-your VMs. There are several similar projects related to testing Chef/Puppet
-configurations, but to my knowledge, none of them provide a simple way to run
-the typical "internal" tests as well as "external" tests (i.e. run from outside
-the VM) in order to verify remote connectivity.
+**vagrant-rspec-ci** is a Vagrant plugin for running integration tests on
+your VMs, and produces jUnit formatted reports for consumption by your CI server 
+(travis and Jenkins and both consume this). 
 
-This project served as a way for me to learn how to write a Vagrant plugin, and
-due to its extreme simplicity, it is also CM/test framework agnostic (a useful
-feature, in my opinion).
+It is based on a fork of Michael Paul Thomas Conigliaro's vagrant-test plugin, with
+some breaking changes to make it rpsec-specific and integrate better with ci_reporter
+(the jUnit report formatter)
 
-## Installation
+## Installation (Vagrant v1.0.x)
 
-    gem install vagrant-test
+    vagrant gem install vagrant-rspec-ci
 
 ## Configuration
 
@@ -26,22 +24,22 @@ your Vagrantfile:
     <th>Default value</th>
   </tr>
   <tr>
-    <td>test.command</td>
+    <td>config.rspec.command</td>
     <td>Command used to run tests</td>
     <td>"rspec -f doc"</td>
   </tr>
   <tr>
-    <td>test.dir</td>
+    <td>config.rspec.dir</td>
     <td>Root directory for all tests</td>
     <td>"spec"</td>
   </tr>
   <tr>
-    <td>test.internal_tests</td>
+    <td>config.rspec.internal_tests</td>
     <td>List of tests to be run by the VM</td>
     <td>[]</td>
   </tr>
   <tr>
-    <td>test.external_tests</td>
+    <td>config.rspec.external_tests</td>
     <td>List of tests to be run by the host system against the VM</td>
     <td>[]</td>
   </tr>
@@ -49,24 +47,17 @@ your Vagrantfile:
 
 ## Usage
 
-    vagrant test [vm-name]
+    vagrant rspec [vm-name]
 
 ## Change Log
 
-### 0.1.2 (2012-03-12)
+### 0.0.1 (2013-04-09)
 
-* Fixes for running under Vagrant 1.0
-* Use bundler
-
-### 0.1.1 (2012-03-02)
-
-* Fix bug when multiple test files are specified
-
-### 0.1.0 (2012-02-29)
-
-* Initial public release
+* Forked from v0.1.2 of vagrant-test
 
 ## License
+
+Copyright (C) 2013 Clinton Wolfe
 
 Copyright (C) 2012 Michael Paul Thomas Conigliaro
 
@@ -90,4 +81,6 @@ SOFTWARE.
 
 ## Credits
 
-* [Michael Paul Thomas Conigliaro](http://conigliaro.org): Original author
+* [Clinton Wolfe](http://ccwolfe.com): Derivative author of vagrant-rspec-ci
+
+* [Michael Paul Thomas Conigliaro](http://conigliaro.org): Original author of vagrant-test

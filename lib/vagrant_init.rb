@@ -1,1 +1,1 @@
-require "vagrant-test"
+require "vagrant-rspec-ci"
