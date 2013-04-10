@@ -30,8 +30,10 @@ module VagrantRspecCI
               vm.ui.error "Unable to execute rspec command: #{$!} \n #{cmd}"
             elsif result.exitstatus == 1 then
               vm.ui.warn "Rspec test #{testfile} has at least one failure - see report output for details"
-            else
+            elsif result.exitstatus == 0 then
               vm.ui.success "Rspec test #{testfile} passed"
+            else 
+              vm.ui.error "Unrecognized exit code from rspec: #{result.exitstatus}\nfor:#{cmd}"
             end
           end
 
