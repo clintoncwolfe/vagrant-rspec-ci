@@ -29,9 +29,14 @@ your Vagrantfile:
     <td>"rspec -f doc"</td>
   </tr>
   <tr>
-    <td>config.rspec.dir</td>
-    <td>Root directory for all tests</td>
-    <td>"spec"</td>
+    <td>config.rspec.external_dirs</td>
+    <td>Array of directories (relative to vagrant project root) to be used as a search path for external tests.</td>
+    <td>['combined/spec_ext", "spec"]</td>
+  </tr>
+  <tr>
+    <td>config.rspec.internal_dirs</td>
+    <td>Array of directories (relative to vagrant project root) to be used as a search path for internal tests.</td>
+    <td>['combined/spec_int", "spec"]</td>
   </tr>
   <tr>
     <td>config.rspec.internal_tests</td>

@@ -15,7 +15,8 @@ module VagrantRspecCI
 
   V_ROOT          = "/vagrant"
   DEFAULT_COMMAND = "rspec -f doc"
-  DEFAULT_DIR     = "spec"
+  DEFAULT_EXTERNAL_DIRS    = [ "combined/spec_ext", "spec" ]
+  DEFAULT_INTERNAL_DIRS    = [ "combined/spec_int", "spec" ]
 
 end
 
