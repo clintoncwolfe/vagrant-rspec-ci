@@ -62,6 +62,9 @@ your Vagrantfile:
 
 ## Change Log
 
+### 0.0.3 (2013-04-10)
+* Remove development dependency on pry-debugger
+
 ### 0.0.2 (2013-04-10)
 * Try to use rspec from vagrant gemset if possible
 
