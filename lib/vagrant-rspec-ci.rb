@@ -4,6 +4,10 @@ require "vagrant"
 require "vagrant-rspec-ci/config"
 require "vagrant-rspec-ci/command"
 
+
+
+require "pry-debugger"
+
 module VagrantRspecCI
 
   NAME            = "vagrant-rspec-ci"
@@ -14,9 +18,16 @@ module VagrantRspecCI
   URL             = "http://github.com/clintoncwolfe/vagrant-rspec-ci"
 
   V_ROOT          = "/vagrant"
-  DEFAULT_COMMAND = "rspec -f doc"
+
+  DEFAULT_INTERNAL_RSPEC_BIN_PATH    = "rspec"
+  DEFAULT_EXTERNAL_RSPEC_BIN_PATH    = "rspec"
+
+  DEFAULT_INTERNAL_REPORTS_DIR    = "rspec_reports"
+  DEFAULT_EXTERNAL_REPORTS_DIR    = "rspec_reports"
+
   DEFAULT_EXTERNAL_DIRS    = [ "combined/spec_ext", "spec" ]
   DEFAULT_INTERNAL_DIRS    = [ "combined/spec_int", "spec" ]
+
   DEFAULT_EXTERNAL_TESTS    = [ "*ext_spec.rb" ]
   DEFAULT_INTERNAL_TESTS    = [ "*int_spec.rb" ]
 

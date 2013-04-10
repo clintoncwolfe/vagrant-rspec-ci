@@ -24,15 +24,39 @@ your Vagrantfile:
     <th>Default value</th>
   </tr>
   <tr>
+    <td>config.rspec.enable_ci_reporter</td>
+    <td>Boolean - whether to use ci_reporter to format rspec results as jUnit reports.</td>
+    <td>true</td>
+  </tr>
+
+  <tr>
     <td>config.rspec.command</td>
     <td>Command used to run tests</td>
     <td>"rspec -f doc"</td>
   </tr>
+
   <tr>
     <td>config.rspec.external_dirs</td>
     <td>Array of directories (relative to vagrant project root) to be used as a search path for external tests.</td>
     <td>['combined/spec_ext", "spec"]</td>
   </tr>
+  <tr>
+    <td>config.rspec.external_tests</td>
+    <td>List of tests (filenames or globs, expanded in the external_dirs paths) to be run outside the VM</td>
+    <td>[ '*ext_spec.rb' ]</td>
+  </tr>
+  <tr>
+    <td>config.rspec.external_rspec_bin_path</td>
+    <td>Path to rspec command, on VM host</td>
+    <td>"rspec"</td>
+  </tr>
+  <tr>
+    <td>config.rspec.external_reports_dir</td>
+    <td>If ci_reporter is enabled, path to write the jUnit XML reports.  Relative to vagrant project dir.</td>
+    <td>"rspec_reports"</td>
+  </tr>
+
+
   <tr>
     <td>config.rspec.internal_dirs</td>
     <td>Array of directories (relative to vagrant project root) to be used as a search path for internal tests.</td>
@@ -44,9 +68,14 @@ your Vagrantfile:
     <td>[ '*int_spec.rb' ]</td>
   </tr>
   <tr>
-    <td>config.rspec.external_tests</td>
-    <td>List of tests (filenames or globs, expanded in the external_dirs paths) to be run outside the VM</td>
-    <td>[ '*ext_spec.rb' ]</td>
+    <td>config.rspec.internal_rspec_bin_path</td>
+    <td>Path to rspec command, inside VM guest.  You must install rpsec yourself!</td>
+    <td>"rspec"</td>
+  </tr>
+  <tr>
+    <td>config.rspec.internal_reports_dir</td>
+    <td>If ci_reporter is enabled, path to write the jUnit XML reports.  Relative to /vagrant, which is mounted on the host's vagrant project dir.</td>
+    <td>"rspec_reports"</td>
   </tr>
 </table>
 

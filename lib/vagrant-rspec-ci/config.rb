@@ -2,10 +2,35 @@ module VagrantRspecCI
 
   class Config < Vagrant::Config::Base
 
-    attr_writer :command, :external_dirs, :internal_dirs, :internal_tests, :external_tests
+    attr_writer :enable_ci_reporter, 
+    :external_rspec_bin_path,
+    :external_reports_dir,
+    :external_dirs,
+    :external_tests,
 
-    def command
-      @command || DEFAULT_COMMAND
+    :internal_rspec_bin_path,
+    :internal_reports_dir,
+    :internal_tests, 
+    :internal_dirs
+
+    def enable_ci_reporter
+      @enable_ci_reporter.nil? ? true : @enable_ci_reporter
+    end
+
+    def external_rspec_bin_path
+      @external_rpsec_bin_path || DEFAULT_EXTERNAL_RSPEC_BIN_PATH
+    end
+
+    def internal_rspec_bin_path
+      @internal_rpsec_bin_path || DEFAULT_INTERNAL_RSPEC_BIN_PATH
+    end
+
+    def external_reports_dir
+      @external_reports_dir || DEFAULT_EXTERNAL_REPORTS_DIR
+    end
+
+    def internal_reports_dir
+      @internal_reports_dir || DEFAULT_INTERNAL_REPORTS_DIR
     end
 
     def external_dirs
