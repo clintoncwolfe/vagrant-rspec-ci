@@ -19,6 +19,7 @@ module VagrantRspecCI
     end
 
     def validate(env, errors)
+      errors = { "rspec" => [] }
 
       [
        :dirs,
@@ -27,15 +28,13 @@ module VagrantRspecCI
         # Each of these should be an array or enumerable.
         value = self.send(thing_sym)
         unless value.respond_to?(:each) then
-          errors.add("config.rspec.#{thing_sym} should be an array")
-          return
+          errors["rspec"].push("config.rspec.#{thing_sym} should be an array")
         end
       end
        
       # Must find at least one of the directory defaults
       edir = self.dirs.find {|d| File.directory?(d) }
-      errors.add("No test directory found - candidates: #{self.dirs.join(',')}") unless edir
-
+      errors["rspec"].push("No test directory found - candidates: #{self.dirs.join(',')}") unless edir
     end
 
     def finalize! 
@@ -51,7 +50,5 @@ module VagrantRspecCI
         @rspec_bin_path = File.exists?(guess) ? guess : DEFAULT_RSPEC_BIN_PATH
       end
     end
-
   end
-
 end
