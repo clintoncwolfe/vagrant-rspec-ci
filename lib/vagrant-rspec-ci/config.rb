@@ -1,6 +1,6 @@
 module VagrantRspecCI
 
-  class Config < Vagrant::Config::Base
+  class Config < Vagrant.plugin(2, :config)
 
     attr_writer :enable_ci_reporter, 
     :suppress_ci_stdout,
@@ -9,33 +9,13 @@ module VagrantRspecCI
     :dirs,
     :tests
 
-    def enable_ci_reporter
-      @enable_ci_reporter.nil? ? true : @enable_ci_reporter
-    end
-
-    def suppress_ci_stdout
-      @suppress_ci_stdout.nil? ? true : @suppress_ci_stdout
-    end
-
-    def rspec_bin_path
-      if @rpsec_bin_path then
-        return @rpsec_bin_path
-      else
-        guess = File.join(::Gem.bindir, 'rspec')
-        return File.exists?(guess) ? guess : DEFAULT_RSPEC_BIN_PATH
-      end
-    end
-
-    def reports_dir
-      @reports_dir || DEFAULT_REPORTS_DIR
-    end
-
-    def dirs
-      @dirs || DEFAULT_DIRS
-    end
-
-    def tests
-      @tests || DEFAULT_TESTS
+    def initialize
+      @enable_ci_reporter = UNSET_VALUE 
+      @suppress_ci_stdout = UNSET_VALUE
+      @rspec_bin_path = UNSET_VALUE
+      @reports_dir = UNSET_VALUE
+      @dirs = UNSET_VALUE
+      @tests = UNSET_VALUE
     end
 
     def validate(env, errors)
@@ -56,6 +36,20 @@ module VagrantRspecCI
       edir = self.dirs.find {|d| File.directory?(d) }
       errors.add("No test directory found - candidates: #{self.dirs.join(',')}") unless edir
 
+    end
+
+    def finalize! 
+      # Set defaults if unset 
+      @enable_ci_reporter = true if @enable_ci_reporter == UNSET_VALUE
+      @suppress_ci_stdout = true if @suppress_ci_stdout == UNSET_VALUE
+      @reports_dir = DEFAULT_REPORTS_DIR if @reports_dirs == UNSET_VALUE
+      @dirs        = DEFAULT_DIRS        if @dirs == UNSET_VALUE
+      @tests = DEFAULT_TESTS if @tests == UNSET_VALUE
+
+      if @rpsec_bin_path == UNSET_VALUE then
+        guess = File.join(::Gem.bindir, 'rspec')
+        @rspec_bin_path = File.exists?(guess) ? guess : DEFAULT_RSPEC_BIN_PATH
+      end
     end
 
   end

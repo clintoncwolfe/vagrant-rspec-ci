@@ -1,15 +1,13 @@
 require "rubygems"
 
 require "vagrant"
-require "vagrant/util/subprocess"
-require "vagrant-rspec-ci/config"
-require "vagrant-rspec-ci/command"
+require "vagrant/util/subprocess"  # TODO verify under vagrant 1.1
 
 
 module VagrantRspecCI
 
   NAME            = "vagrant-rspec-ci"
-  VERSION         = "0.0.3"
+  VERSION         = "0.0.4"
   AUTHOR          = "Clinton Wolfe"
   AUTHOR_EMAIL    = "clintoncwolfe [at] gmail [dot] com"
   DESCRIPTION     = "vagrant-rspec-ci is a Vagrant plugin for running tests against your VMs, derived from vagrant-test"
@@ -25,6 +23,3 @@ module VagrantRspecCI
 
 
 end
-
-Vagrant.config_keys.register(:rspec) { VagrantRspecCI::Config }
-Vagrant.commands.register(:rspec) { VagrantRspecCI::Command }
