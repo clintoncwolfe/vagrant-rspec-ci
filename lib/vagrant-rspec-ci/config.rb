@@ -1,26 +1,28 @@
-module VagrantRspecCI
+module VagrantPlugins
+  module VagrantRspecCI
 
-  class Config < Vagrant.plugin(2, :config)
+    class Config < Vagrant.plugin(2, :config)
 
-    attr_writer :enable_ci_reporter, 
-    :suppress_ci_stdout,
-    :rspec_bin_path,
-    :reports_dir,
-    :dirs,
-    :tests
+      attr_accessor :enable_ci_reporter, 
+      :suppress_ci_stdout,
+      :rspec_bin_path,
+      :reports_dir,
+      :dirs,
+      :tests
 
-    def initialize
-      @enable_ci_reporter = UNSET_VALUE 
-      @suppress_ci_stdout = UNSET_VALUE
-      @rspec_bin_path = UNSET_VALUE
-      @reports_dir = UNSET_VALUE
-      @dirs = UNSET_VALUE
-      @tests = UNSET_VALUE
-    end
+      def initialize
+        @enable_ci_reporter = UNSET_VALUE 
+        @suppress_ci_stdout = UNSET_VALUE
+        @rspec_bin_path = UNSET_VALUE
+        @reports_dir = UNSET_VALUE
+        @dirs = UNSET_VALUE
+        @tests = UNSET_VALUE
+      end
 
-    def validate(env, errors)
-      errors = { "rspec" => [] }
-
+      # TODO check args to this
+      def validate(machine)
+        errors = { "rspec" => [] }
+        
       [
        :dirs,
        :tests,

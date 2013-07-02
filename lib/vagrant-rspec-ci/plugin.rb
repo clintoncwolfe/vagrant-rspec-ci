@@ -1,16 +1,18 @@
-module VagrantRspecCI
-  class Plugin < Vagrant.plugin("2")
-    name "Run rspec tests against a VM, with jUnit output"
+module VagrantPlugins
+  module VagrantRspecCI
+    class Plugin < Vagrant.plugin("2")
+      name "Run rspec tests against a VM, with jUnit output"
+      
+      #command "rspec" do
+      #  require_relative "command"
+      #  VagrantPlugins::VagrantRspecCI::Command
+      #end
 
-    command "rspec" do
-      require_relative "command"
-      next VagrantRspecCI::Command
+      config "rspec" do
+        require_relative "config"
+        VagrantPlugins::VagrantRspecCI::Config
+      end
+
     end
-
-    config "rspec" do
-      require_relative "config"
-      Config
-    end
-
   end
 end
