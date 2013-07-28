@@ -2,7 +2,7 @@ module VagrantPlugins
   module VagrantRspecCI
 
     NAME            = "vagrant-rspec-ci"
-    VERSION         = "1.0.0"
+    VERSION         = "1.0.1"
     AUTHOR          = "Clinton Wolfe"
     AUTHOR_EMAIL    = "clintoncwolfe [at] gmail [dot] com"
     DESCRIPTION     = "vagrant-rspec-ci is a Vagrant 1.2.x plugin for running tests against your VMs, derived from vagrant-test"
