@@ -1,10 +1,11 @@
 
 require "vagrant/util/subprocess"  # TODO verify under vagrant 1.1
 
+require 'pp'
+
 module VagrantPlugins
   module VagrantRspecCI
-
-    class Command < Vagrant::Command::Base
+    class Command < Vagrant.plugin("2", "command")
 
       def execute
         opts = OptionParser.new do |opts|
@@ -15,12 +16,19 @@ module VagrantPlugins
         return if !argv
 
         with_target_vms(argv[0]) do |vm|
-          vm.env.action_runner.run(Vagrant::Action::General::Validate, {:vm=>vm, :ui=>vm.ui})
+          # vm.env.action_runner.run(Vagrant::Action::General::Validate, {:vm=>vm, :ui=>vm.ui})
 
-          if !vm.created? || vm.state != :running
+          s = vm.state.short_description
+
+          # TODO - VBox-specific machine state name?
+          if s != 'running'
             vm.ui.error("VM not running. Not running tests.")        
           else
             
+            # If rpsec isn't explicitly mentioned in the Vagrantfile, the config will get initted but 
+            # not finalized.  Need to finalize to get defaults.  Harmless to re-finalize anyway.
+            vm.config.rspec.finalize!
+
             tests = expand_test_list(vm.config.rspec)
             cmd = rspec_command(vm)
             tests.each do |testfile|
@@ -64,6 +72,9 @@ module VagrantPlugins
       end
 
       def expand_test_list (rspec_config) 
+
+        pp rspec_config.tests
+
         tests = rspec_config.tests.map { |filespec|
           rspec_config.dirs.find_all { |dir| File.directory?(dir) }.map { |dir|          
             Dir.glob(File.join(dir, filespec))

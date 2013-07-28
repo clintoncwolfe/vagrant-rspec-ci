@@ -11,6 +11,7 @@ module VagrantPlugins
       :tests
 
       def initialize
+        puts "In config initialize"
         @enable_ci_reporter = UNSET_VALUE 
         @suppress_ci_stdout = UNSET_VALUE
         @rspec_bin_path = UNSET_VALUE
@@ -20,7 +21,9 @@ module VagrantPlugins
       end
 
       def finalize! 
-        # Set defaults if unset 
+        puts "In config finalize!"
+
+        # Set defaults if unset         
         @enable_ci_reporter = true if @enable_ci_reporter == UNSET_VALUE
         @suppress_ci_stdout = true if @suppress_ci_stdout == UNSET_VALUE
         @reports_dir = DEFAULT_REPORTS_DIR if @reports_dirs == UNSET_VALUE
@@ -52,7 +55,7 @@ module VagrantPlugins
         # Must find at least one of the directory defaults
         edir = self.dirs.find {|d| File.directory?(d) }
         errors["rspec"].push("No test directory found - candidates: #{self.dirs.join(',')}") unless edir
+      end
     end
-
   end
 end

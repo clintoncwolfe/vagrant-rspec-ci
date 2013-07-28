@@ -13,6 +13,7 @@ Gem::Specification.new do |s|
   s.description       = VagrantPlugins::VagrantRspecCI::DESCRIPTION
 
   s.add_dependency "rspec"
+  s.add_dependency "ci_reporter"
 
   s.files = ["README.md", "LICENSE"] + Dir["lib/**/*.*"]
 end
