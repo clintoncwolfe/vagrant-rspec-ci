@@ -9,9 +9,13 @@ some (very) breaking changes to make it rpsec-specific and integrate better with
 (the jUnit report formatter).  I also removed the internal side of testing, as we didn't 
 want to alter the test subject (by installing rspec internally in the VM, for example)
 
+## Installation (Vagrant v1.1+)
+
+    vagrant plugin install vagrant-rspec-ci
+
 ## Installation (Vagrant v1.0.x)
 
-    vagrant gem install vagrant-rspec-ci
+    vagrant gem install vagrant-rspec-ci -v 0.0.3
 
 ## Configuration
 
@@ -59,21 +63,6 @@ your Vagrantfile:
 ## Usage
 
     vagrant rspec [vm-name]
-
-## Change Log
-
-### 0.0.3 (2013-04-10)
-* Remove development dependency on pry-debugger
-
-### 0.0.2 (2013-04-10)
-* Try to use rspec from vagrant gemset if possible
-
-### 0.0.1 (2013-04-09)
-* Integrated with ci_reporter
-* Added directories as search paths, with defaults
-* Added globbing for test files
-* Removed internal testing support
-* Forked from v0.1.2 of vagrant-test
 
 ## License
 
