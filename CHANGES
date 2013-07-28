@@ -1,0 +1,3 @@
+2013-07-28 v1.0.0 clintoncwolfe at gmail dot com
+   * Rewrite for API compatibility with vagrant 1.2 .  No longer compatible
+      with v1.0.x; not tested with 1.1.x
