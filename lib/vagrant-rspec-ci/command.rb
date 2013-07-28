@@ -1,8 +1,6 @@
 
 require "vagrant/util/subprocess"  # TODO verify under vagrant 1.1
 
-require 'pp'
-
 module VagrantPlugins
   module VagrantRspecCI
     class Command < Vagrant.plugin("2", "command")
@@ -35,8 +33,8 @@ module VagrantPlugins
               vm.ui.info("Running rspec test: #{testfile}")
               cmd = "#{cmd} #{testfile}"
               env = prep_env(vm)
-              @logger.debug("Command: #{cmd}")
-              @logger.debug("Environment: #{env.inspect()}")
+              #puts("Command: #{cmd}")
+              #puts("Environment: #{env.inspect()}")
               system(env, cmd)
               result = $?
               # rspec exits 0 if all passed, 1 if some failed - and system gives nil if there was a problem starting the process
@@ -72,9 +70,6 @@ module VagrantPlugins
       end
 
       def expand_test_list (rspec_config) 
-
-        pp rspec_config.tests
-
         tests = rspec_config.tests.map { |filespec|
           rspec_config.dirs.find_all { |dir| File.directory?(dir) }.map { |dir|          
             Dir.glob(File.join(dir, filespec))

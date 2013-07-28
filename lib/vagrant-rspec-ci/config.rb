@@ -11,7 +11,6 @@ module VagrantPlugins
       :tests
 
       def initialize
-        puts "In config initialize"
         @enable_ci_reporter = UNSET_VALUE 
         @suppress_ci_stdout = UNSET_VALUE
         @rspec_bin_path = UNSET_VALUE
@@ -21,16 +20,14 @@ module VagrantPlugins
       end
 
       def finalize! 
-        puts "In config finalize!"
-
         # Set defaults if unset         
         @enable_ci_reporter = true if @enable_ci_reporter == UNSET_VALUE
         @suppress_ci_stdout = true if @suppress_ci_stdout == UNSET_VALUE
-        @reports_dir = DEFAULT_REPORTS_DIR if @reports_dirs == UNSET_VALUE
+        @reports_dir = DEFAULT_REPORTS_DIR if @reports_dir == UNSET_VALUE
         @dirs        = DEFAULT_DIRS        if @dirs == UNSET_VALUE
         @tests = DEFAULT_TESTS if @tests == UNSET_VALUE
         
-        if @rpsec_bin_path == UNSET_VALUE then
+        if @rspec_bin_path == UNSET_VALUE then
           guess = File.join(::Gem.bindir, 'rspec')
           @rspec_bin_path = File.exists?(guess) ? guess : DEFAULT_RSPEC_BIN_PATH
         end
