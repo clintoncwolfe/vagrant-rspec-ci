@@ -9,6 +9,7 @@ module VagrantPlugins
       #end
 
       config "rspec" do
+        puts ">>>>> in rspec config loader hook"
         require_relative "config"
         VagrantPlugins::VagrantRspecCI::Config
       end
