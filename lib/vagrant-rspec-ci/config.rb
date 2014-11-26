@@ -28,7 +28,7 @@ module VagrantPlugins
         @tests = DEFAULT_TESTS if @tests == UNSET_VALUE
         
         if @rspec_bin_path == UNSET_VALUE then
-          guess = File.join(::Gem.bindir, 'rspec')
+          guess = ::Gem.bin_path 'rspec', 'rspec'
           @rspec_bin_path = File.exists?(guess) ? guess : DEFAULT_RSPEC_BIN_PATH
         end
       end
