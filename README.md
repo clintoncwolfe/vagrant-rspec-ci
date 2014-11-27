@@ -93,3 +93,5 @@ SOFTWARE.
 * [Clinton Wolfe](http://ccwolfe.com): Derivative author of vagrant-rspec-ci
 
 * [Michael Paul Thomas Conigliaro](http://conigliaro.org): Original author of vagrant-test
+
+* See CHANGES file for contributors via pull requests
