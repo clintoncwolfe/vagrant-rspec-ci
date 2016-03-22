@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 group :development do
+  gem 'pry-byebug'
   if ENV['VAGRANT_VERSION']
     gem 'vagrant', git: 'https://github.com/mitchellh/vagrant.git', tag: ENV['VAGRANT_VERSION']
   else
