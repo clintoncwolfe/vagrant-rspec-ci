@@ -28,11 +28,15 @@ module VagrantPlugins
         @tests = DEFAULT_TESTS if @tests == UNSET_VALUE
         
         if @rspec_bin_path == UNSET_VALUE then
-          guess = ::Gem.bin_path 'rspec', 'rspec'
+          guess = guess_rspec_bin_path
           @rspec_bin_path = File.exists?(guess) ? guess : DEFAULT_RSPEC_BIN_PATH
         end
       end
 
+      def guess_rspec_bin_path
+        rspec_version = ::Gem::Specification::find_by_name('rspec').version
+        ::Gem.bin_path rspec_version >= Gem::Version.new('2.0.0.a2') ? 'rspec-core' : 'rspec', 'rspec'
+      end
 
       # TODO check args to this
       def validate(machine)

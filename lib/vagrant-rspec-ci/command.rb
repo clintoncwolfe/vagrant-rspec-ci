@@ -104,7 +104,7 @@ module VagrantPlugins
 
         cmd = ""
         cmd << rspec_path
-        cmd << (use_cir ? " --require " + ci_hook_path + " --format CI::Reporter::RSpec" : "")
+        cmd << (use_cir ? " --require " + ci_hook_path + " --format CI::Reporter::RSpecFormatter" : "")
         cmd << (use_cir && vm.config.rspec.suppress_ci_stdout ? " -o /dev/null " : "")
         cmd << vm.config.rspec.dirs.map{ |d| " -I #{d}" }.join('')
 
