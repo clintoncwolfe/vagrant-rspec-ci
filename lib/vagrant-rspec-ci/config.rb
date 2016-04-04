@@ -49,13 +49,13 @@ module VagrantPlugins
           # Each of these should be an array or enumerable.
           value = self.send(thing_sym)
           unless value.respond_to?(:each) then
-            errors["rspec"].push("config.rspec.#{thing_sym} should be an array")
+            errors["vagrant-rspec-ci"].push("config.rspec.#{thing_sym} should be an array")
           end
         end
         
         # Must find at least one of the directory defaults
         edir = self.dirs.find {|d| File.directory?(d) }
-        errors["rspec"].push("No test directory found - candidates: #{self.dirs.join(',')}") unless edir
+        errors["vagrant-rspec-ci"].push("No test directory found - candidates: #{self.dirs.join(',')}") unless edir
       end
     end
   end
