@@ -1,4 +1,7 @@
 2015-03-28 v1.1.1 clintoncwolfe at gmail dot com
+   * Merge PR #5 from clintoncwolfe, fix for error message from config plugin when dir does not exist
+
+2015-03-28 v1.1.1 clintoncwolfe at gmail dot com
    * Merge PR #4 from jblancett, compatibility updates for rspec and ci-reporter
 
 2014-11-27 v1.1.0 clintoncwolfe at gmail dot com
